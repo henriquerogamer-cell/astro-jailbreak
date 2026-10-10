@@ -16,13 +16,22 @@ const string contentId = "IV9999-PPSX40001_00-ASTROJAILBREAK00";
 const string titleId = "PPSX40001";
 
 if (!File.Exists(ebootSource))
-    throw new FileNotFoundException("Provide a compatible PS5 web-launcher eboot.bin at assets/astro/eboot.bin.", ebootSource);
+    throw new FileNotFoundException("Provide a PS5-compatible eboot.bin.", ebootSource);
 Directory.CreateDirectory(outputDir);
 var appRoot = Path.Combine(outputDir, "astro-app");
 if (Directory.Exists(appRoot)) Directory.Delete(appRoot, recursive: true);
 var sceSys = Path.Combine(appRoot, "sce_sys");
 Directory.CreateDirectory(sceSys);
 File.Copy(ebootSource, Path.Combine(appRoot, "eboot.bin"), overwrite: true);
+
+// Copy the companion runtime for native apps built from the public PS5 boilerplate.
+var runtimeSource = Path.Combine(Path.GetDirectoryName(ebootSource)!, "sce_module", "libc.prx");
+if (File.Exists(runtimeSource))
+{
+    var sceModule = Path.Combine(appRoot, "sce_module");
+    Directory.CreateDirectory(sceModule);
+    File.Copy(runtimeSource, Path.Combine(sceModule, "libc.prx"), overwrite: true);
+}
 
 var param = new JsonObject
 {

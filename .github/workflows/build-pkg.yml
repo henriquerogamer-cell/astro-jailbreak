@@ -1,0 +1,52 @@
+name: Build ASTRO-Jailbreak.pkg
+
+on:
+  push:
+    branches: [dev/astro-jailbreak]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-pkg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout ASTRO source and artwork
+        uses: actions/checkout@v4
+      - name: Install .NET 10 and RAR extractor
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Download and verify Relapse launcher reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y unar
+          mkdir -p "$RUNNER_TEMP/reference"
+          curl -fL --retry 3 "https://github.com/vinasxexplosao/relapsenadarepublicano/releases/download/RelapseNadaRepublic/RelapseNadaRepublicano.rar" -o "$RUNNER_TEMP/reference/RelapseNadaRepublicano.rar"
+          echo "da460f4f2db8d3c728abc115a5a1650298ff9aa186a34b59ce6262ad9e0c363b  $RUNNER_TEMP/reference/RelapseNadaRepublicano.rar" | sha256sum --check
+          unar -q -o "$RUNNER_TEMP/reference/unpacked" "$RUNNER_TEMP/reference/RelapseNadaRepublicano.rar"
+          find "$RUNNER_TEMP/reference/unpacked" -type f -iname '*.pkg' -print -quit > "$RUNNER_TEMP/reference/pkg-path.txt"
+          test -s "$RUNNER_TEMP/reference/pkg-path.txt"
+          cp "$(cat "$RUNNER_TEMP/reference/pkg-path.txt")" "$RUNNER_TEMP/reference/reference.pkg"
+      - name: Fetch pinned PS5 package builder
+        run: |
+          git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$RUNNER_TEMP/LibProsperoPKG"
+          git -C "$RUNNER_TEMP/LibProsperoPKG" checkout 748eabf1b7d17819528cabf367d8e27109d8fce3
+      - name: Build and verify package
+        shell: bash
+        run: |
+          set -euo pipefail
+          deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@${GITHUB_SHA}/index.html"
+          dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$RUNNER_TEMP/reference/reference.pkg" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
+          test -s dist/ASTRO-Jailbreak.pkg
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ASTRO-Jailbreak-pkg
+          path: dist/ASTRO-Jailbreak.pkg
+          if-no-files-found: error
+          retention-days: 30

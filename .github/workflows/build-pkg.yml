@@ -12,7 +12,7 @@ permissions:
 jobs:
   build-pkg:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - name: Checkout ASTRO source and artwork
         uses: actions/checkout@v4
@@ -22,50 +22,32 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Fetch and extract the public Sonic URL-launcher eboot
+      - name: Build a PS5-native eboot from public source
         shell: bash
         run: |
           set -euo pipefail
-          launcher="$RUNNER_TEMP/sonic-loader-tile.pkg"
-          tool_src="$RUNNER_TEMP/ps5-ultrapack"
-          tool_out="$RUNNER_TEMP/pkgtool"
-          extracted="$RUNNER_TEMP/websrv-extracted"
+          native_src="$RUNNER_TEMP/ps5-native-app-boilerplate"
+          native_out="$RUNNER_TEMP/astro-native"
+          sudo apt-get update
+          sudo apt-get install --yes clang-18 clang-format-18 lld-18 make ninja-build ccache pkg-config tar unzip wget
+          git clone --filter=blob:none https://github.com/blackbearreloaded/ps5-native-app-boilerplate.git "$native_src"
+          git -C "$native_src" checkout 38c68b4645ab6a1470c7598df1a3fc10d3e0cae0
+          make -C "$native_src" init TITLE_ID=PPSA99998 APP_NAME="ASTRO Launcher"
+          make -C "$native_src" app
+          mkdir -p "$native_out"
+          cp -a "$native_src/dist/PPSA99998/." "$native_out/"
+          test -s "$native_out/eboot.bin"
+          test -s "$native_out/sce_module/libc.prx"
+          file "$native_out/eboot.bin"
+          sha256sum "$native_out/eboot.bin"
 
-          curl --fail --location --retry 3 --output "$launcher" \
-            "https://raw.githubusercontent.com/aloksaurabh/sonicloader/b2acd888daec840e3be0ebdaccc00e730ab627d0/payloads/sonic-loader-tile.pkg"
-
-          git clone --filter=blob:none https://github.com/knutwurst/ps5-ultrapack.git "$tool_src"
-          git -C "$tool_src" checkout 32d776f9a5f54166845d4b8e2cb90bb380a00725
-
-          dotnet publish "$tool_src/backend/native/src/ffpfsc-pkg-tool/PkgTool.csproj" \
-            --configuration Release --runtime linux-x64 --self-contained true \
-            -p:RuntimeIdentifier=linux-x64 -p:SelfContained=true \
-            --output "$tool_out"
-
-          "$tool_out/ffpfsc-pkg-tool" list-inner "$launcher" > "$RUNNER_TEMP/websrv-listing.json"
-          python3 - "$RUNNER_TEMP/websrv-listing.json" "$RUNNER_TEMP/eboot-members.txt" <<'PY'
-          import json
-          import sys
-          listing_path, members_path = sys.argv[1:]
-          data = json.load(open(listing_path, encoding="utf-8"))
-          paths = [entry["path"] for entry in data.get("entries", [])
-                   if entry.get("type") != "dir" and entry.get("path", "").lower().endswith("eboot.bin")]
-          if not paths:
-              raise SystemExit("No eboot.bin entry in public Sonic URL-launcher PKG: " + json.dumps(data))
-          path = paths[0].lstrip("/")
-          print("Using launcher executable:", path)
-          open(members_path, "w", encoding="utf-8").write(path + "\n")
-          PY
-
-          "$tool_out/ffpfsc-pkg-tool" extract-inner "$launcher" "$extracted" \
-            --members "$RUNNER_TEMP/eboot-members.txt"
-
-          eboot_path="$(find "$extracted" -type f -iname eboot.bin -print -quit)"
-          test -n "$eboot_path"
-          install -D "$eboot_path" "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
-          test -s "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
-          sha256sum "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
-
+      - name: Require generated PS5 eboot
+        shell: bash
+        run: |
+          if [ ! -s "$RUNNER_TEMP/astro-native/eboot.bin" ]; then
+            echo "::error::The public PS5 native-app build did not produce eboot.bin."
+            exit 1
+          fi
       - name: Require a PS5 launcher eboot
         shell: bash
         run: |
@@ -84,7 +66,7 @@ jobs:
         run: |
           set -euo pipefail
           deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@${GITHUB_SHA}/index.html"
-          dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$GITHUB_WORKSPACE/assets/astro/eboot.bin" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
+          dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$RUNNER_TEMP/astro-native/eboot.bin" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
           test -s dist/ASTRO-Jailbreak.pkg
 
       - name: Upload package artifact

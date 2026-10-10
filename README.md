@@ -15,8 +15,13 @@ Host and package artwork for ASTRO Jailbreak. The launcher targets PS5 firmware 
 
 ## Package build
 
-Pushing to `dev/astro-jailbreak` runs `.github/workflows/build-pkg.yml`. A successful run uploads `ASTRO-Jailbreak.pkg` as the `ASTRO-Jailbreak-pkg` workflow artifact. The workflow verifies its pinned launcher archive, extracts the reference package, updates the title/deeplink and artwork, then rebuilds and checks the output package.
+The package workflow is manual. It needs a compatible PS5 web-launcher `eboot.bin` at
+`assets/astro/eboot.bin`; the encrypted reference PKGs available to this build cannot provide
+that module with the current open extraction path. Once the module is present, run
+`.github/workflows/build-pkg.yml` from GitHub Actions. A successful run uploads
+`ASTRO-Jailbreak.pkg` as the `ASTRO-Jailbreak-pkg` workflow artifact.
 
-The package is a debug fPKG build. The CI check confirms package structure and metadata; installation and launch on a PS5 still need to be tested on the target console.
+The generated file is a debug fPKG. CI checks the package structure and metadata; installation
+and launch still need testing on the target PS5.
 
 See [THIRD_PARTY.md](THIRD_PARTY.md) for upstream source and build-tool pins.

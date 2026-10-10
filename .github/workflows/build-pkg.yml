@@ -1,8 +1,6 @@
 name: Build ASTRO-Jailbreak.pkg
 
 on:
-  push:
-    branches: [dev/astro-jailbreak]
   workflow_dispatch:
 
 permissions:
@@ -15,17 +13,17 @@ jobs:
     steps:
       - name: Checkout ASTRO source and artwork
         uses: actions/checkout@v4
-      - name: Install .NET 10 and RAR extractor
+      - name: Require a PS5 launcher eboot
+        shell: bash
+        run: |
+          if [ ! -s assets/astro/eboot.bin ]; then
+            echo "::error::Add a compatible web-launcher eboot.bin at assets/astro/eboot.bin, then run this workflow again."
+            exit 1
+          fi
+      - name: Install .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - name: Download public WebKit launcher base
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/reference"
-          curl -fL --retry 3 "https://raw.githubusercontent.com/ps5-payload-dev/websrv/bc336a9e61cc5a23dd8f71f5156b79c04d4f71f7/homebrew/IV9999-FAKE00000_00-HOMEBREWLOADER01.pkg" -o "$RUNNER_TEMP/reference/reference.pkg"
-          test -s "$RUNNER_TEMP/reference/reference.pkg"
       - name: Fetch pinned PS5 package builder
         run: |
           git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$GITHUB_WORKSPACE/LibProsperoPKG"
@@ -35,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@${GITHUB_SHA}/index.html"
-          dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$RUNNER_TEMP/reference/reference.pkg" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
+          dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$GITHUB_WORKSPACE/assets/astro/eboot.bin" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
           test -s dist/ASTRO-Jailbreak.pkg
       - name: Upload package artifact
         uses: actions/upload-artifact@v4

@@ -34,8 +34,9 @@ jobs:
           git -C "$native_src" checkout 38c68b4645ab6a1470c7598df1a3fc10d3e0cae0
           make -C "$native_src" init TITLE_ID=PPSA99998 APP_NAME="ASTRO Launcher"
           make -C "$native_src" app
-          mkdir -p "$native_out"
-          cp -a "$native_src/dist/PPSA99998/." "$native_out/"
+          mkdir -p "$native_out/sce_module"
+          cp "$native_src/build/eboot.elf" "$native_out/eboot.bin"
+          cp "$native_src/dist/PPSA99998/sce_module/libc.prx" "$native_out/sce_module/libc.prx"
           test -s "$native_out/eboot.bin"
           test -s "$native_out/sce_module/libc.prx"
           file "$native_out/eboot.bin"

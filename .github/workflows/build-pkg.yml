@@ -42,11 +42,27 @@ jobs:
             -p:RuntimeIdentifier=linux-x64 -p:SelfContained=true \
             --output "$tool_out"
 
-          printf '%s\\n' 'eboot.bin' > "$RUNNER_TEMP/eboot-members.txt"
+          "$tool_out/ffpfsc-pkg-tool" list-inner "$launcher" > "$RUNNER_TEMP/websrv-listing.json"
+          python3 - "$RUNNER_TEMP/websrv-listing.json" "$RUNNER_TEMP/eboot-members.txt" <<'PY'
+          import json
+          import sys
+          listing_path, members_path = sys.argv[1:]
+          data = json.load(open(listing_path, encoding="utf-8"))
+          paths = [entry["path"] for entry in data.get("entries", [])
+                   if entry.get("type") != "dir" and entry.get("path", "").lower().endswith("eboot.bin")]
+          if not paths:
+              raise SystemExit("No eboot.bin entry in public WebSrv launcher PKG: " + json.dumps(data))
+          path = paths[0].lstrip("/")
+          print("Using launcher executable:", path)
+          open(members_path, "w", encoding="utf-8").write(path + "\n")
+          PY
+
           "$tool_out/ffpfsc-pkg-tool" extract-inner "$launcher" "$extracted" \
             --members "$RUNNER_TEMP/eboot-members.txt"
 
-          install -D "$extracted/eboot.bin" "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
+          eboot_path="$(find "$extracted" -type f -iname eboot.bin -print -quit)"
+          test -n "$eboot_path"
+          install -D "$eboot_path" "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
           test -s "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
           sha256sum "$GITHUB_WORKSPACE/assets/astro/eboot.bin"
 

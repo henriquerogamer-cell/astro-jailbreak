@@ -19,19 +19,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - name: Download and verify Relapse launcher reference
+      - name: Download public WebKit launcher base
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y unar
           mkdir -p "$RUNNER_TEMP/reference"
-          curl -fL --retry 3 "https://github.com/vinasxexplosao/relapsenadarepublicano/releases/download/RelapseNadaRepublic/RelapseNadaRepublicano.rar" -o "$RUNNER_TEMP/reference/RelapseNadaRepublicano.rar"
-          echo "da460f4f2db8d3c728abc115a5a1650298ff9aa186a34b59ce6262ad9e0c363b  $RUNNER_TEMP/reference/RelapseNadaRepublicano.rar" | sha256sum --check
-          unar -q -o "$RUNNER_TEMP/reference/unpacked" "$RUNNER_TEMP/reference/RelapseNadaRepublicano.rar"
-          find "$RUNNER_TEMP/reference/unpacked" -type f -iname '*.pkg' -print -quit > "$RUNNER_TEMP/reference/pkg-path.txt"
-          test -s "$RUNNER_TEMP/reference/pkg-path.txt"
-          cp "$(cat "$RUNNER_TEMP/reference/pkg-path.txt")" "$RUNNER_TEMP/reference/reference.pkg"
+          curl -fL --retry 3 "https://raw.githubusercontent.com/ps5-payload-dev/websrv/bc336a9e61cc5a23dd8f71f5156b79c04d4f71f7/homebrew/IV9999-FAKE00000_00-HOMEBREWLOADER01.pkg" -o "$RUNNER_TEMP/reference/reference.pkg"
+          test -s "$RUNNER_TEMP/reference/reference.pkg"
       - name: Fetch pinned PS5 package builder
         run: |
           git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$GITHUB_WORKSPACE/LibProsperoPKG"

@@ -34,8 +34,8 @@ jobs:
           cp "$(cat "$RUNNER_TEMP/reference/pkg-path.txt")" "$RUNNER_TEMP/reference/reference.pkg"
       - name: Fetch pinned PS5 package builder
         run: |
-          git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$RUNNER_TEMP/LibProsperoPKG"
-          git -C "$RUNNER_TEMP/LibProsperoPKG" checkout 748eabf1b7d17819528cabf367d8e27109d8fce3
+          git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$GITHUB_WORKSPACE/LibProsperoPKG"
+          git -C "$GITHUB_WORKSPACE/LibProsperoPKG" checkout 748eabf1b7d17819528cabf367d8e27109d8fce3
       - name: Build and verify package
         shell: bash
         run: |

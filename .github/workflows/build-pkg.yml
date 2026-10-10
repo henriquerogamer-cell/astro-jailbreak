@@ -58,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@${GITHUB_SHA}/index.html"
+          deeplink="https://raw.githack.com/henriquerogamer-cell/astro-jailbreak/${GITHUB_SHA}/index.html"
           dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$RUNNER_TEMP/astro-native/eboot.bin" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
           test -s dist/ASTRO-Jailbreak.pkg
 

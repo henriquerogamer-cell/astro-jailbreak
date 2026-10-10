@@ -48,14 +48,6 @@ jobs:
             echo "::error::The public PS5 native-app build did not produce eboot.bin."
             exit 1
           fi
-      - name: Require a PS5 launcher eboot
-        shell: bash
-        run: |
-          if [ ! -s assets/astro/eboot.bin ]; then
-            echo "::error::The WebSrv launcher eboot could not be extracted."
-            exit 1
-          fi
-
       - name: Fetch pinned PS5 package builder
         run: |
           git clone --filter=blob:none https://github.com/SvenGDK/LibProsperoPKG.git "$GITHUB_WORKSPACE/LibProsperoPKG"

@@ -2,6 +2,9 @@ name: Build ASTRO-Jailbreak.pkg
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - dev/astro-jailbreak
 
 permissions:
   contents: read
@@ -64,7 +67,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@\${GITHUB_SHA}/index.html"
+          deeplink="https://cdn.jsdelivr.net/gh/henriquerogamer-cell/astro-jailbreak@${GITHUB_SHA}/index.html"
           dotnet run --configuration Release --project tools/pkg-builder/AstroPkgBuilder.csproj -- "$GITHUB_WORKSPACE/assets/astro/eboot.bin" "$GITHUB_WORKSPACE/dist" "$deeplink" "$GITHUB_WORKSPACE/assets/astro"
           test -s dist/ASTRO-Jailbreak.pkg
 

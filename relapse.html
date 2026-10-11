@@ -6,66 +6,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nada Republicano</title>
 <style>
-:root{color-scheme:dark;--cyan:#12c8ff;--blue:#0875ff;--ink:#020918;--panel:rgba(5,18,39,.88);--line:rgba(57,164,255,.38);--white:#f4f8ff;--muted:#a8bdd7}
-*{box-sizing:border-box}
+:root{color-scheme:dark;--cyan:#12c8ff;--blue:#0875ff;--ink:#020918;--white:#f4f8ff;--muted:#a8bdd7}
 html,body{margin:0;min-height:100%;background:var(--ink);color:var(--white);font:16px/1.4 "Segoe UI",Arial,sans-serif}
-body{min-height:100vh;overflow-x:hidden;padding:clamp(18px,4vw,58px);background-image:linear-gradient(90deg,rgba(1,7,18,.94),rgba(1,9,24,.83)),url("assets/astro/background.png"),radial-gradient(ellipse at 65% 35%,#063c82 0,transparent 50%);background-size:cover;background-position:center;background-attachment:fixed}
-#console{display:none}
-#astro-debug[open] #console{display:block;max-height:36vh;overflow:auto;color:#dceaff;font:11px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-all}
-.ok{color:#5dff9c!important}
-#astro-loading{width:min(100%,980px);min-height:calc(100vh - 2 * clamp(18px,4vw,58px));margin:auto;display:flex;flex-direction:column;justify-content:center}
-.loading-brand{display:block;width:min(390px,72vw);max-height:145px;object-fit:contain;object-position:center;margin:0 auto 10px}
-.loading-tagline{text-align:center;margin:0 0 28px;color:#d2e6ff;text-transform:uppercase;letter-spacing:.25em;font-size:.82rem}
-.loading-panel{width:min(100%,760px);margin:auto;padding:clamp(22px,5vw,42px);background:linear-gradient(145deg,rgba(4,18,41,.94),rgba(2,10,25,.9));border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 90px #0008,inset 0 0 38px #0875ff12}
-.loading-heading{display:flex;align-items:center;justify-content:center;gap:15px;text-align:left}
-.loading-orbit{width:48px;height:48px;flex:none;border:2px solid #39bdff;border-radius:50%;position:relative;box-shadow:0 0 22px #0785ff99,inset 0 0 18px #0875ff66}
-.loading-orbit:before{content:"";position:absolute;inset:8px;border:1px solid #85e2ff;border-radius:50%}
-.loading-orbit:after{content:"";position:absolute;width:9px;height:9px;top:3px;left:4px;border-radius:50%;background:#b5f3ff;box-shadow:0 0 14px #53d7ff}
-.loading-heading h1{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);letter-spacing:.14em}
-.loading-heading p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
-.loading-status{margin:27px 0 18px;text-align:center}
-#astro-status{display:block;font-size:clamp(1.15rem,3vw,1.65rem);letter-spacing:.03em}
-#astro-detail{display:block;margin-top:6px;color:var(--muted);font-size:.9rem}
-.progress-track{height:10px;overflow:hidden;margin:20px 0 8px;border:1px solid #248fe5;border-radius:99px;background:#031129;box-shadow:inset 0 2px 7px #000a}
-#astro-progress{height:100%;width:8%;border-radius:inherit;background:linear-gradient(90deg,#0875ff,#18c9ff,#a8f4ff);box-shadow:0 0 18px #0abaff;transition:width .45s ease}
-.progress-caption{display:flex;justify-content:space-between;gap:10px;color:#aac8e8;font-size:.75rem;letter-spacing:.11em;text-transform:uppercase}
-.loading-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}
-.loading-card{min-width:0;padding:13px 14px;background:rgba(3,14,32,.8);border:1px solid rgba(57,164,255,.28);border-radius:14px}
-.loading-card small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em}
-.loading-card strong{display:block;margin-top:4px;font-size:.9rem}
-.loading-footer{display:flex;justify-content:center;gap:10px;margin-top:22px;color:#a8bdd7;font-size:.78rem}
-.loading-footer span+span:before{content:"•";margin-right:10px;color:#27b7ff}
-#astro-loading[data-state="error"] .loading-orbit{border-color:#ff687f;box-shadow:0 0 22px #ff365599}
-#astro-loading[data-state="error"] #astro-status{color:#ff9aaa}
-#astro-loading[data-state="error"] #astro-progress{background:linear-gradient(90deg,#ff4764,#ff9aaa);box-shadow:0 0 18px #ff3655}
-#astro-debug{position:fixed;z-index:10;left:16px;bottom:14px;max-width:min(720px,calc(100vw - 32px));color:#dceaff;font:12px/1.45 "Segoe UI",Arial,sans-serif}
-#astro-debug summary{display:inline-block;padding:9px 12px;border:1px solid rgba(57,164,255,.4);border-radius:10px;background:rgba(2,10,25,.92);cursor:pointer}
-#astro-debug[open]{width:min(720px,calc(100vw - 32px));padding:0 12px 12px;border:1px solid rgba(57,164,255,.4);border-radius:12px;background:rgba(2,10,25,.97);box-shadow:0 12px 40px #0009}
-#astro-debug[open] summary{display:block;margin:0 -12px 8px;border:0;border-bottom:1px solid rgba(57,164,255,.25);border-radius:12px 12px 0 0}
-body.verbose #console{display:block;max-height:36vh;overflow:auto;color:#dceaff;font:11px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-all}
-#console div{padding:1px 0}
+body{min-height:100vh;overflow:hidden;background-image:linear-gradient(90deg,rgba(1,7,18,.86),rgba(1,9,24,.72)),url("assets/astro/background.png"),radial-gradient(ellipse at 65% 35%,#063c82 0,transparent 50%);background-size:cover;background-position:center;background-attachment:fixed}
+#console{display:block;position:fixed;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 36px));height:350px;max-height:calc(100vh - 36px);margin:0;padding:0;border:1px solid rgba(57,164,255,.45);border-radius:24px;overflow:hidden;background-color:rgba(2,10,25,.94);background-image:linear-gradient(90deg,#031129,#147fdf,#12c8ff,#147fdf,#031129),url("assets/astro/logo-astro.png"),linear-gradient(145deg,rgba(4,18,41,.97),rgba(2,10,25,.95));background-size:72% 8px,210px auto,cover;background-position:center calc(100% - 42px),center 24px,center;background-repeat:no-repeat;box-shadow:0 24px 90px #000b,inset 0 0 38px #0875ff18;color:var(--white);font:16px/1.4 "Segoe UI",Arial,sans-serif}
+#console:before{content:"EXECUTANDO RELAPSE\A Aguarde enquanto o ASTRO prepara o ambiente.\A Firmware 12.60   •   Rede conectada   •   Status: carregando";position:absolute;left:18px;right:18px;top:156px;text-align:center;white-space:pre-line;color:#eaf6ff;font-size:clamp(.9rem,2.6vw,1.22rem);line-height:2;letter-spacing:.035em}
+#console:after{content:"";position:absolute;left:14%;bottom:38px;width:22%;height:7px;border-radius:99px;background:linear-gradient(90deg,#0875ff,#12c8ff,#c2f7ff);box-shadow:0 0 16px #12baff;animation:astro-sweep 1.65s ease-in-out infinite}
+#console div{display:none}
+@keyframes astro-sweep{0%{transform:translateX(0)}50%{transform:translateX(220%)}100%{transform:translateX(0)}}
+body.verbose{overflow:auto}
+body.verbose #console{position:static;left:auto;top:auto;transform:none;width:auto;height:auto;max-height:none;min-height:100vh;margin:0;padding:10px 12px;border:0;border-radius:0;overflow-y:auto;background:transparent;box-shadow:none;color:#dceaff;font:12px/1.45 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-all}
+body.verbose #console:before,body.verbose #console:after{display:none}
+body.verbose #console div{display:block;padding:1px 0}
 .LOG-DEBUG{color:#8ca2bb}.LOG-INFO{color:#6dcfff}.LOG-LOG{color:#dfeaff}.LOG-WARN{color:#ffd27d}.LOG-ERROR{color:#ff8396}.LOG-SUCCESS{color:#71ffbd}
-@media(max-width:560px){body{padding:14px}.loading-brand{max-height:110px}.loading-panel{border-radius:19px}.loading-cards{gap:7px}.loading-card{padding:10px 8px}.loading-card small{font-size:.62rem}.loading-card strong{font-size:.75rem}.loading-footer{font-size:.7rem}#astro-debug{left:10px;bottom:9px}}
+@media(max-width:520px){#console{height:320px;border-radius:19px;background-size:76% 7px,180px auto,cover;background-position:center calc(100% - 36px),center 24px,center}#console:before{top:142px;line-height:1.8;padding:0 6px}#console:after{bottom:32px}}
 </style>
 </head>
 <body>
-<main id="astro-loading" data-state="loading" aria-live="polite">
-  <img class="loading-brand" src="assets/astro/logo-astro.png" alt="ASTRO Jailbreak" onerror="this.hidden=true">
-  <p class="loading-tagline">Liberte todo o potencial do seu PS5</p>
-  <section class="loading-panel" aria-label="Progresso da execução">
-    <header class="loading-heading"><span class="loading-orbit" aria-hidden="true"></span><span><h1>ASTRO JAILBREAK</h1><p>Executando Relapse</p></span></header>
-    <div class="loading-status"><strong id="astro-status">Preparando execução do Relapse…</strong><span id="astro-detail">Mantenha esta tela aberta enquanto o processo é executado.</span></div>
-    <div class="progress-track" role="progressbar" aria-label="Progresso da execução" aria-valuemin="0" aria-valuemax="100" aria-valuenow="8"><div id="astro-progress"></div></div>
-    <div class="progress-caption"><span>ASTRO • Relapse</span><span id="astro-progress-label">Iniciando</span></div>
-    <div class="loading-cards">
-      <div class="loading-card"><small>Firmware</small><strong id="astro-firmware">Detectando…</strong></div>
-      <div class="loading-card"><small>Rede</small><strong class="ok">Conectada</strong></div>
-      <div class="loading-card"><small>Status</small><strong id="astro-state-label">Em andamento</strong></div>
-    </div>
-  </section>
-  <footer class="loading-footer"><span>ASTRO Jailbreak</span><span>Firmware 12.60</span></footer>
-</main>
-<details id="astro-debug"><summary>Detalhes técnicos</summary><div id="console"></div></details>
+<div id="console"></div>
 <script src="rop.js"></script>
 <script src="payloads.js?v=1"></script>
 <script src="firmware.js?v=4"></script>
@@ -94,10 +52,7 @@ window.offsetsReady = new Promise(function (resolve, reject) {
     window.AIO_CFG = {};
     if (query.get("kexp")) AIO_CFG.kexp = query.get("kexp");
     if (query.get("elfldr")) AIO_CFG.elfldr = query.get("elfldr");
-    if (query.get("log") === "debug") {
-        document.body.classList.add("verbose");
-        document.getElementById("astro-debug").open = true;
-    }
+    if (query.get("log") !== "0") document.body.classList.add("verbose");
 })();
 </script>
 <script type="module">
@@ -110,63 +65,8 @@ if (CORE_INSTANCE !== memCoreInstance)
     throw new Error("core.js module skew: index.html and mem.js imported different ?v= URLs");
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 var __bseq=0;function __bcn(m){try{new Image().src="log/LT-s"+(++__bseq)+"-"+encodeURIComponent(String(m)).slice(0,400)+"?t="+Date.now();}catch(e){}}
-function updateAstroLoading(message, level) {
-    const screen = document.getElementById("astro-loading");
-    if (!screen) return;
-    const text = String(message || "");
-    const lower = text.toLowerCase();
-    const status = document.getElementById("astro-status");
-    const detail = document.getElementById("astro-detail");
-    const progress = document.getElementById("astro-progress");
-    const track = document.querySelector(".progress-track");
-    const label = document.getElementById("astro-progress-label");
-    const stateLabel = document.getElementById("astro-state-label");
-    const firmware = document.getElementById("astro-firmware");
-    const setProgress = (value, name) => {
-        progress.style.width = value + "%";
-        track.setAttribute("aria-valuenow", String(value));
-        label.textContent = name;
-    };
-    if (window.fw_str && firmware.textContent === "Detectando…")
-        firmware.textContent = String(window.fw_str);
-    if (/automatic browser recovery/i.test(lower)) {
-        screen.dataset.state = "loading";
-        status.textContent = "Retomando a execução";
-        detail.textContent = "O processo está tentando se recuperar automaticamente.";
-        stateLabel.textContent = "Recuperando";
-        setProgress(42, "Recuperação");
-    } else if (level === "LOG-ERROR" || /^FAILED:/i.test(text)) {
-        screen.dataset.state = "error";
-        status.textContent = "A execução encontrou um erro";
-        detail.textContent = "Abra “Detalhes técnicos” para ver o registro completo.";
-        stateLabel.textContent = "Verificar";
-        label.textContent = "Interrompido";
-        return;
-    } else if (/firmware/i.test(lower)) {
-        if (window.fw_str) firmware.textContent = String(window.fw_str);
-        status.textContent = "Verificando compatibilidade";
-        detail.textContent = "Firmware detectado. Preparando o ambiente do Relapse.";
-        setProgress(18, "Compatibilidade");
-    } else if (/running the webkit bug|webkit/i.test(lower)) {
-        status.textContent = "Preparando o ambiente do PS5";
-        detail.textContent = "Iniciando a etapa de compatibilidade do Relapse.";
-        stateLabel.textContent = "Preparando";
-        setProgress(34, "Preparação");
-    } else if (/primitive up|window\.p was|primitive pair/i.test(lower)) {
-        status.textContent = "Ambiente preparado";
-        detail.textContent = "Carregando a próxima etapa do Relapse.";
-        stateLabel.textContent = "Carregando";
-        setProgress(58, "Ambiente");
-    } else if (/rop|kernel|patch|worker|elf loader|elfldr|payload/i.test(lower)) {
-        status.textContent = "Executando Relapse";
-        detail.textContent = "Aguarde enquanto os componentes são inicializados.";
-        stateLabel.textContent = "Executando";
-        setProgress(78, "Execução");
-    }
-}
 function print(message, level) {
     __bcn(message);   // forward every log line to the beacon logger (sync XHR)
-    updateAstroLoading(message, level);
     const line = document.createElement("div");
     line.className = level || "LOG-LOG";
     line.textContent = String(message);
@@ -531,8 +431,6 @@ function buildPayloadMenu() {
     return menu;
 }
 function showPayloadMenu() {
-    const loading = document.getElementById("astro-loading");
-    if (loading) loading.hidden = true;
     const consoleEl = document.getElementById("console");
     if (consoleEl) consoleEl.style.display = "none";
     const menu = buildPayloadMenu();

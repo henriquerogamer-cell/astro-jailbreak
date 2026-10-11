@@ -1,27 +1,16 @@
-# ASTRO Jailbreak
+# relapse
 
-Host and package artwork for ASTRO Jailbreak. The launcher targets PS5 firmware 12.60 and opens the Relapse runtime from this repository's immutable jsDelivr commit URL.
+🚨 **NOVO MÉTODO PARA PS5: FIRMWARE 7.00 ATÉ 13.60!**
 
-## Artwork
+Saiu uma nova página com a cadeia de exploits WebKit + Kernel do PS5, utilizando o Relapse/AIO. O método tem suporte desde a firmware 7.00 até a 13.60, incluindo várias versões intermediárias.
 
-| File | Dimensions |
-|---|---:|
-| `assets/astro/icon0.png` | 512 × 512 |
-| `assets/astro/pic0.png` | 1920 × 1080 |
-| `assets/astro/pic1.png` | 1920 × 1080 |
-| `assets/astro/logo-astro.png` | 1514 × 1001, transparent |
-| `assets/astro/background.png` | 1920 × 1080 |
-| `assets/astro/splash.png` | 1280 × 720 |
+A ideia é simples: você abre a página diretamente no navegador do console e deixa o processo rodar. Se tudo der certo, o menu de payloads aparece na própria tela, e o envio dos arquivos ELF é feito pelo próprio console, sem precisar de um servidor externo para executar essa parte.
 
-## Package build
+⚠️ **Atenção:** as firmwares 10.60 e 11.40 ficaram de fora porque faltam módulos necessários para obter os offsets usados pelo exploit.
 
-The package workflow is manual. It needs a compatible PS5 web-launcher `eboot.bin` at
-`assets/astro/eboot.bin`; the encrypted reference PKGs available to this build cannot provide
-that module with the current open extraction path. Once the module is present, run
-`.github/workflows/build-pkg.yml` from GitHub Actions. A successful run uploads
-`ASTRO-Jailbreak.pkg` as the `ASTRO-Jailbreak-pkg` workflow artifact.
+O suporte inclui consoles Retail e Testkit. Já quem utiliza Devkit precisa da versão específica chamada **Relapse-Dev**.
 
-The generated file is a debug fPKG. CI checks the package structure and metadata; installation
-and launch still need testing on the target PS5.
+Outro detalhe: o arquivo `elf.html` é um menu separado para consoles que já estão desbloqueados e precisa de um servidor compatível com execução de código e acesso ao console. Portanto, não funciona no GitHub Pages.
 
-See [THIRD_PARTY.md](THIRD_PARTY.md) for upstream source and build-tool pins.
+É mais uma novidade importante para a cena do PS5. Quem está em firmware compatível já tem motivo para acompanhar de perto o trabalho dos desenvolvedores. 🎮
+

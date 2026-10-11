@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASTRO Jailbreak</title>
+<title>Nada Republicano</title>
 <style>
   html, body { margin: 0; padding: 0; background: #0b0b0d;
     background-image: radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255,110,0,.16) 0, rgba(0,0,0,0) 60%); }
@@ -30,42 +30,10 @@
   .LOG-WARN { color: #ffd27d; }
   .LOG-ERROR { color: #ff6b6b; }
   .LOG-SUCCESS { color: #7dff9e; }
-
-  #console { display:none !important; }
-  body.verbose #console { display:block !important; position:fixed; inset:0; z-index:20; box-sizing:border-box; padding:12px; overflow:auto; color:#dfeaff; background:rgba(1,5,13,.97); font:12px/1.45 ui-monospace,Consolas,monospace; white-space:pre-wrap; word-break:break-word; }
-  #astro-loading { position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; color:#f4f8ff; font:16px/1.45 "Segoe UI",Arial,sans-serif; background:linear-gradient(110deg,rgba(1,7,18,.94),rgba(1,9,24,.78)),url("assets/astro/background.png") center/cover,#020918; }
-  #astro-loading .card { width:min(620px,100%); padding:clamp(28px,5vw,52px); text-align:center; border:1px solid rgba(70,179,255,.45); border-radius:24px; background:rgba(3,13,31,.88); box-shadow:0 0 65px rgba(0,128,255,.22),inset 0 0 32px rgba(17,114,255,.06); }
-  #astro-loading .brand { margin:0; color:#f4f8ff; font-size:clamp(34px,8vw,58px); font-weight:800; letter-spacing:.12em; text-shadow:0 0 24px rgba(28,151,255,.5); }
-  #astro-loading .brand span { display:block; margin-top:2px; color:#19aaff; font-size:14px; letter-spacing:.52em; }
-  #astro-spinner { position:relative; width:88px; height:88px; margin:30px auto 22px; border:3px solid rgba(46,166,255,.2); border-top-color:#31c6ff; border-right-color:#0875ff; border-radius:50%; animation:astro-spin 1.05s linear infinite; filter:drop-shadow(0 0 12px rgba(0,156,255,.65)); }
-  #astro-spinner:after { content:""; position:absolute; width:13px; height:13px; top:4px; left:6px; border-radius:50%; background:#d9f7ff; box-shadow:0 0 15px #45cfff; }
-  @keyframes astro-spin { to { transform:rotate(360deg); } }
-  #astro-loading h1 { margin:0 0 8px; font-size:clamp(21px,4vw,28px); }
-  #astro-loading .detail { min-height:48px; margin:0 auto 22px; color:#a8bdd7; max-width:460px; }
-  #astro-track { height:7px; overflow:hidden; border-radius:8px; background:#07172a; box-shadow:inset 0 0 0 1px rgba(63,167,255,.28); }
-  #astro-track i { display:block; width:38%; height:100%; border-radius:inherit; background:linear-gradient(90deg,#0875ff,#20d6ff); box-shadow:0 0 18px #078dff; animation:astro-progress 1.8s ease-in-out infinite; }
-  @keyframes astro-progress { 0% { transform:translateX(-110%); } 100% { transform:translateX(360%); } }
-  #astro-loading .hint { margin:18px 0 0; color:#718aa7; font-size:12px; }
-  #astro-loading.is-error #astro-spinner, #astro-loading.is-error #astro-track { display:none; }
-  #astro-loading.is-error h1 { color:#ffce7a; }
-  #astro-loading .reload { display:none; margin-top:22px; padding:12px 25px; border:1px solid #35c8ff; border-radius:12px; color:white; background:linear-gradient(110deg,#0871ff,#0756d7); font:600 16px "Segoe UI",Arial,sans-serif; }
-  #astro-loading.is-error .reload { display:inline-block; }
-  @media (prefers-reduced-motion:reduce) { #astro-spinner,#astro-track i { animation:none; } }
 </style>
 </head>
 <body>
 <div id="console"></div>
-<div id="astro-loading" role="status" aria-live="polite">
-  <div class="card">
-    <p class="brand">ASTRO<span>JAILBREAK</span></p>
-    <div id="astro-spinner" aria-hidden="true"></div>
-    <h1 id="astro-title">Preparando o ambiente</h1>
-    <p class="detail" id="astro-detail">Aguarde enquanto o ASTRO inicia no PS5.</p>
-    <div id="astro-track" aria-hidden="true"><i></i></div>
-    <p class="hint" id="astro-hint">Não feche esta página durante a inicialização.</p>
-    <button class="reload" id="astro-reload" type="button" onclick="location.reload()">Tentar novamente</button>
-  </div>
-</div>
 <script src="rop.js"></script>
 <script src="payloads.js?v=1"></script>
 <script src="firmware.js?v=4"></script>
@@ -94,7 +62,7 @@ window.offsetsReady = new Promise(function (resolve, reject) {
     window.AIO_CFG = {};
     if (query.get("kexp")) AIO_CFG.kexp = query.get("kexp");
     if (query.get("elfldr")) AIO_CFG.elfldr = query.get("elfldr");
-    if (query.get("log") === "debug") document.body.classList.add("verbose");
+    if (query.get("log") !== "0") document.body.classList.add("verbose");
 })();
 </script>
 <script type="module">
@@ -115,23 +83,10 @@ function print(message, level) {
     const view = document.getElementById("console");
     if (view) { view.appendChild(line); view.scrollTop = view.scrollHeight; }
 }
-function setLoading(title, detail, error) {
-    const screen = document.getElementById("astro-loading");
-    if (!screen) return;
-    document.getElementById("astro-title").textContent = title;
-    document.getElementById("astro-detail").textContent = detail;
-    if (error) {
-        screen.classList.add("is-error");
-        document.getElementById("astro-hint").textContent = "Os detalhes técnicos ficam disponíveis ao adicionar ?log=debug ao endereço.";
-    }
-}
-let workerAwaitTimer = null;
 function reportFailure(error) {
     const message = String((error && error.message) || error)
         + ((error && error.stack) ? " @" + error.stack : "");
     print("FAILED: " + message, "LOG-ERROR");
-    if (workerAwaitTimer) clearTimeout(workerAwaitTimer);
-    setLoading("Não foi possível concluir", String((error && error.message) || error), true);
     try { window.__rep("PAGE-FAIL", message.slice(0, 400)); } catch (e) { /* best effort */ }
     // Some PS5 WebKit/ROP runs fail transiently after the primitive is already
     // established. The existing ROP worker explicitly tells us to reload in
@@ -155,24 +110,8 @@ function reportFailure(error) {
     }, 900);
 }
 // main.js logs progress through window.jb when it is present.
-window.jb = { mark: (tag, detail) => {
-    print(detail ? tag + " " + detail : tag, "LOG-INFO");
-    if (tag === "PREP-PRE-WORKER-AWAIT") {
-        setLoading("Inicializando o worker", "Aguardando a resposta necessária para continuar.");
-        if (workerAwaitTimer) clearTimeout(workerAwaitTimer);
-        workerAwaitTimer = setTimeout(() => {
-            setLoading("A inicialização não concluiu", "O worker não respondeu. Confira se rop_slave.js foi incluído e publicado junto com os arquivos do pacote.", true);
-        }, 15000);
-    } else if (tag === "PREP-POST-WORKER-AWAIT") {
-        if (workerAwaitTimer) clearTimeout(workerAwaitTimer);
-        workerAwaitTimer = null;
-        setLoading("Worker iniciado", "Continuando a inicialização do ASTRO.");
-    } else if (/primitive up/i.test(String(tag) + " " + String(detail || ""))) {
-        setLoading("Preparando o ASTRO", "Ambiente inicializado. Iniciando a próxima etapa.");
-    } else if (/firmware/i.test(String(tag))) {
-        setLoading("Verificando o sistema", "Identificando a versão do firmware.");
-    }
-} };
+window.jb = { mark: (tag, detail) => print(detail ?
+    tag + " " + detail : tag, "LOG-INFO") };
 window.addEventListener("error", (e) => print("error: " + (e && e.message), "LOG-ERROR"));
 window.addEventListener("unhandledrejection", (e) =>
     print("rejected: " + String((e && e.reason && e.reason.message) || (e && e.reason)), "LOG-ERROR"));
@@ -406,7 +345,7 @@ function buildPayloadMenu() {
     const header = document.createElement("div");
     header.className = "payload-header";
     const title = document.createElement("h2");
-    title.textContent = "ASTRO · Payload Manager";
+    title.textContent = "Nada Republicano · Payloads";
     const status = document.createElement("p");
     status.className = "payload-status";
     status.textContent = "Porta do console: 9021";
@@ -504,8 +443,6 @@ function buildPayloadMenu() {
 function showPayloadMenu() {
     const consoleEl = document.getElementById("console");
     if (consoleEl) consoleEl.style.display = "none";
-    const loading = document.getElementById("astro-loading");
-    if (loading) loading.style.display = "none";
     const menu = buildPayloadMenu();
     if (!menu) return;
     menu.style.setProperty("visibility", "visible", "important");
@@ -520,11 +457,8 @@ buildPayloadMenu();
 run().then(() => {
     // A successful run clears the one-shot recovery guard.
     try { sessionStorage.removeItem("relapse.auto-retry"); } catch (e) {}
-    if (window.__elfldrUp && typeof window.__sendPayload === "function") {
+    if (window.__elfldrUp && typeof window.__sendPayload === "function")
         showPayloadMenu();
-    } else {
-        setLoading("A inicialização não concluiu", "O processo terminou sem ativar o ELF loader. Atualize a página e tente novamente.", true);
-    }
 }).catch(reportFailure);
 </script>
 </body>

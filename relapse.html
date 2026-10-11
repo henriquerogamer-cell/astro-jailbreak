@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nada Republicano</title>
+<title>ASTRO Jailbreak</title>
 <style>
 :root{color-scheme:dark;--cyan:#12c8ff;--blue:#0875ff;--ink:#020918;--white:#f4f8ff;--muted:#a8bdd7}
 html,body{margin:0;min-height:100%;background:var(--ink);color:var(--white);font:16px/1.4 "Segoe UI",Arial,sans-serif}
@@ -170,7 +170,7 @@ function buildPayloadMenu() {
         min-height:100vh;
         padding:18px 16px 28px;
         background:#0b0b0d;
-        background-image:radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255,110,0,.16) 0, rgba(0,0,0,0) 60%);
+        background-image:radial-gradient(ellipse 90% 50% at 50% -10%, rgba(0,117,255,.16) 0, rgba(0,0,0,0) 60%);
         color:#fff;
         font:16px/1.45 "Segoe UI",Arial,sans-serif;
         overflow-y:auto;
@@ -194,16 +194,16 @@ function buildPayloadMenu() {
       }
       #relapse-payload-menu .payload-status {
         margin:0;
-        color:#ff8c00 !important;
-        -webkit-text-fill-color:#ff8c00 !important;
+        color:#38baff !important;
+        -webkit-text-fill-color:#38baff !important;
         font-size:13px;
         font-weight:700;
         letter-spacing:1px;
       }
       #relapse-payload-menu .payload-help {
         margin:3px 0 0;
-        color:#8a857c !important;
-        -webkit-text-fill-color:#8a857c !important;
+        color:#8aabc7 !important;
+        -webkit-text-fill-color:#8aabc7 !important;
         font-size:12px;
       }
       #relapse-payload-menu .payload-grid {
@@ -217,13 +217,14 @@ function buildPayloadMenu() {
         box-sizing:border-box;
         align-content:start;
       }
+      #relapse-payload-menu[style*="visibility: visible"] .payload-grid > .payload-tile:not(:nth-child(10)):not(:nth-child(12)):not(:nth-child(13)):not(:nth-child(16)) { display:none !important; }
       #relapse-payload-menu .payload-tile {
         display:block !important;
         box-sizing:border-box;
         width:100%;
         min-height:104px;
         padding:1rem 2rem;
-        border:1px solid rgba(255,140,26,.35);
+        border:1px solid rgba(57,164,255,.35);
         border-radius:1rem;
         background:#1d1b1e !important;
         background-image:linear-gradient(180deg,#26221a 0%,#17161b 100%) !important;
@@ -239,12 +240,12 @@ function buildPayloadMenu() {
       #relapse-payload-menu .payload-tile:focus,
       #relapse-payload-menu .payload-tile:hover {
         outline:0;
-        border:1px solid #ff8c1a !important;
-        background:#ff8c1a !important;
-        background-image:linear-gradient(180deg,#ff8c1a 0%,#e35d00 100%) !important;
-        color:#14100b !important;
-        -webkit-text-fill-color:#14100b !important;
-        box-shadow:inset 0 3px 8px rgba(0,0,0,.4), 0 6px 22px rgba(255,122,26,.45) !important;
+        border:1px solid #32b9ff !important;
+        background:#0875ff !important;
+        background-image:linear-gradient(180deg,#0875ff 0%,#064ab8 100%) !important;
+        color:#041324 !important;
+        -webkit-text-fill-color:#041324 !important;
+        box-shadow:inset 0 3px 8px rgba(0,0,0,.4), 0 6px 22px rgba(0,130,255,.45) !important;
         transform:scale(.97);
       }
       #relapse-payload-menu .payload-tile.sending { opacity:.55; }
@@ -281,22 +282,22 @@ function buildPayloadMenu() {
         text-decoration:none !important;
       }
       #relapse-payload-menu .payload-title {
-        color:#ffd700 !important;
-        -webkit-text-fill-color:#ffd700 !important;
+        color:#9ee5ff !important;
+        -webkit-text-fill-color:#9ee5ff !important;
         font-size:1.3rem !important;
         line-height:1.55rem !important;
         font-weight:800 !important;
       }
       #relapse-payload-menu .payload-description {
-        color:#b8b2a8 !important;
-        -webkit-text-fill-color:#b8b2a8 !important;
+        color:#b8cce0 !important;
+        -webkit-text-fill-color:#b8cce0 !important;
         font-size:1rem !important;
         line-height:1.45rem !important;
         font-weight:400 !important;
       }
       #relapse-payload-menu .payload-info {
-        color:#8a857c !important;
-        -webkit-text-fill-color:#8a857c !important;
+        color:#8aabc7 !important;
+        -webkit-text-fill-color:#8aabc7 !important;
         font-size:.9rem !important;
         line-height:1.35rem !important;
         font-weight:400 !important;
@@ -304,20 +305,20 @@ function buildPayloadMenu() {
       #relapse-payload-menu .payload-tile:hover .payload-title,
       #relapse-payload-menu .payload-tile:focus .payload-title,
       #relapse-payload-menu .payload-tile:active .payload-title {
-        color:#14100b !important;
-        -webkit-text-fill-color:#14100b !important;
+        color:#041324 !important;
+        -webkit-text-fill-color:#041324 !important;
       }
       #relapse-payload-menu .payload-tile:hover .payload-description,
       #relapse-payload-menu .payload-tile:focus .payload-description,
       #relapse-payload-menu .payload-tile:active .payload-description {
-        color:#3d2b1a !important;
-        -webkit-text-fill-color:#3d2b1a !important;
+        color:#062448 !important;
+        -webkit-text-fill-color:#062448 !important;
       }
       #relapse-payload-menu .payload-tile:hover .payload-info,
       #relapse-payload-menu .payload-tile:focus .payload-info,
       #relapse-payload-menu .payload-tile:active .payload-info {
-        color:#57402a !important;
-        -webkit-text-fill-color:#57402a !important;
+        color:#183e66 !important;
+        -webkit-text-fill-color:#183e66 !important;
       }
       @media (max-width:700px) {
         #relapse-payload-menu .payload-grid { grid-template-columns:1fr; }
@@ -335,7 +336,7 @@ function buildPayloadMenu() {
     const header = document.createElement("div");
     header.className = "payload-header";
     const title = document.createElement("h2");
-    title.textContent = "Nada Republicano · Payloads";
+    title.textContent = "ASTRO Jailbreak · Payloads";
     const status = document.createElement("p");
     status.className = "payload-status";
     status.textContent = "Porta do console: 9021";
@@ -374,33 +375,33 @@ function buildPayloadMenu() {
             line.style.setProperty("white-space", "normal", "important");
             line.style.setProperty("width", "100%", "important");
         }
-        name.style.setProperty("color", "#ffd700", "important");
-        name.style.setProperty("-webkit-text-fill-color", "#ffd700", "important");
-        description.style.setProperty("color", "#b8b2a8", "important");
-        description.style.setProperty("-webkit-text-fill-color", "#b8b2a8", "important");
-        info.style.setProperty("color", "#8a857c", "important");
-        info.style.setProperty("-webkit-text-fill-color", "#8a857c", "important");
+        name.style.setProperty("color", "#9ee5ff", "important");
+        name.style.setProperty("-webkit-text-fill-color", "#9ee5ff", "important");
+        description.style.setProperty("color", "#b8cce0", "important");
+        description.style.setProperty("-webkit-text-fill-color", "#b8cce0", "important");
+        info.style.setProperty("color", "#8aabc7", "important");
+        info.style.setProperty("-webkit-text-fill-color", "#8aabc7", "important");
         a.addEventListener("focus", () => {
-            a.style.setProperty("background-color", "#ff8c1a", "important");
-            a.style.setProperty("color", "#14100b", "important");
-            a.style.setProperty("-webkit-text-fill-color", "#14100b", "important");
-            name.style.setProperty("color", "#14100b", "important");
-            name.style.setProperty("-webkit-text-fill-color", "#14100b", "important");
-            description.style.setProperty("color", "#3d2b1a", "important");
-            description.style.setProperty("-webkit-text-fill-color", "#3d2b1a", "important");
-            info.style.setProperty("color", "#57402a", "important");
-            info.style.setProperty("-webkit-text-fill-color", "#57402a", "important");
+            a.style.setProperty("background-color", "#0875ff", "important");
+            a.style.setProperty("color", "#041324", "important");
+            a.style.setProperty("-webkit-text-fill-color", "#041324", "important");
+            name.style.setProperty("color", "#041324", "important");
+            name.style.setProperty("-webkit-text-fill-color", "#041324", "important");
+            description.style.setProperty("color", "#062448", "important");
+            description.style.setProperty("-webkit-text-fill-color", "#062448", "important");
+            info.style.setProperty("color", "#183e66", "important");
+            info.style.setProperty("-webkit-text-fill-color", "#183e66", "important");
         });
         a.addEventListener("blur", () => {
             a.style.setProperty("background-color", "#1d1b1e", "important");
             a.style.setProperty("color", "#fff", "important");
             a.style.setProperty("-webkit-text-fill-color", "#fff", "important");
-            name.style.setProperty("color", "#ffd700", "important");
-            name.style.setProperty("-webkit-text-fill-color", "#ffd700", "important");
-            description.style.setProperty("color", "#b8b2a8", "important");
-            description.style.setProperty("-webkit-text-fill-color", "#b8b2a8", "important");
-            info.style.setProperty("color", "#8a857c", "important");
-            info.style.setProperty("-webkit-text-fill-color", "#8a857c", "important");
+            name.style.setProperty("color", "#9ee5ff", "important");
+            name.style.setProperty("-webkit-text-fill-color", "#9ee5ff", "important");
+            description.style.setProperty("color", "#b8cce0", "important");
+            description.style.setProperty("-webkit-text-fill-color", "#b8cce0", "important");
+            info.style.setProperty("color", "#8aabc7", "important");
+            info.style.setProperty("-webkit-text-fill-color", "#8aabc7", "important");
         });
         a.append(name, description, info);
         a.addEventListener("click", async (e) => {
